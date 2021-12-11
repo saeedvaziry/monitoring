@@ -26,7 +26,7 @@ func frequency() uint64 {
 	viper.AddConfigPath(".")
 	configError := viper.ReadInConfig()
 	if configError != nil {
-		panic(fmt.Errorf("Fatal error config file: %w \n", configError))
+		panic(fmt.Errorf("Cannot read the config.json file"))
 	}
 	return viper.GetUint64("frequency")
 }
@@ -38,7 +38,7 @@ func statsUrl() string {
 	viper.AddConfigPath(".")
 	configError := viper.ReadInConfig()
 	if configError != nil {
-		panic(fmt.Errorf("Fatal error config file: %w \n", configError))
+		panic(fmt.Errorf("Cannot read the config.json file"))
 	}
 	return viper.GetString("url")
 }
@@ -67,7 +67,7 @@ func sendStats() {
 	jsonValue, _ := json.Marshal(values)
 	_, err := http.Post(statsUrl(), "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %w \n", err))
+		panic(fmt.Errorf("Send stats error"))
 	}
 }
 
