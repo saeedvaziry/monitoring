@@ -1,0 +1,10 @@
+.vscode/
+config.json
+.DS_Store
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+.glide/
