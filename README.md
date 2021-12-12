@@ -1,3 +1,3 @@
-# server-stats
+# Monitoring
 
 A simple server monitoring
