@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/jasonlvhit/gocron"
 	"github.com/shirou/gopsutil/cpu"
@@ -26,7 +27,7 @@ func frequency() uint64 {
 	viper.AddConfigPath(".")
 	configError := viper.ReadInConfig()
 	if configError != nil {
-		panic(fmt.Errorf("Cannot read the config.json file"))
+		os.Exit(0)
 	}
 	return viper.GetUint64("frequency")
 }
@@ -38,7 +39,7 @@ func statsUrl() string {
 	viper.AddConfigPath(".")
 	configError := viper.ReadInConfig()
 	if configError != nil {
-		panic(fmt.Errorf("Cannot read the config.json file"))
+		os.Exit(0)
 	}
 	return viper.GetString("url")
 }
@@ -65,12 +66,5 @@ func diskUsage() string {
 func sendStats() {
 	values := map[string]string{"memory": memoryUsage(), "cpu": cpuUsage(), "disk": diskUsage()}
 	jsonValue, _ := json.Marshal(values)
-	_, err := http.Post(statsUrl(), "application/json", bytes.NewBuffer(jsonValue))
-	if err != nil {
-		panic(fmt.Errorf("Send stats error"))
-	}
-}
-
-func test() {
-	fmt.Println("test")
+	http.Post(statsUrl(), "application/json", bytes.NewBuffer(jsonValue))
 }
