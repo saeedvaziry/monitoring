@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	// "github.com/jasonlvhit/gocron"
+	"github.com/jasonlvhit/gocron"
 	"github.com/shirou/gopsutil/cpu"
 	"github.com/shirou/gopsutil/disk"
 	"github.com/shirou/gopsutil/mem"
@@ -15,10 +15,9 @@ import (
 )
 
 func main() {
-	fmt.Println("hi")
-	// s := gocron.NewScheduler()
-	// s.Every(frequency()).Minutes().Do(sendStats)
-	// <-s.Start()
+	s := gocron.NewScheduler()
+	s.Every(frequency()).Minutes().Do(sendStats)
+	<-s.Start()
 }
 
 // get stats url
