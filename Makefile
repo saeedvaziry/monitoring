@@ -5,4 +5,4 @@ run:
 	go run main.go
 
 compile:
-	GOOS=linux GOARCH=386 CGO_ENABLED=0 go build -o bin/monitoring main.go
+	GOOS=linux CGO_ENABLED=0 go build -o bin/monitoring main.go
